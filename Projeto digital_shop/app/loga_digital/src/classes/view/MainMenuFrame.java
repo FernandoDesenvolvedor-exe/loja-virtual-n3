@@ -1,52 +1,178 @@
-package classes.view;
+package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
+import model.User;
 
-public class MainMenuFrame extends JFrame implements ActionListener{
+public class MainMenuFrame extends JFrame {
+    final Color MENU_COLOR = new Color(0x3C2961);
+    final Color CONTENT_COLOR = new Color(0x9C98BB);
+    final Color FONT_COLOR = new Color(0xDBD6E3);
 
-    private JButton exitBtn;
-    private JButton storeFrameBtn;    
+    User user;
+
+    JButton logoutBtn = new JButton();
+    JButton storeFrameBtn = new JButton();   
+    JButton cartFrameBtn = new JButton();
+
+    Components width = Components.BTNW;
+    Components height = Components.BTNH; 
+
+    GridBagConstraints constraintBtnStore = new GridBagConstraints();
+    GridBagConstraints constraintBtnCart = new GridBagConstraints();
+    GridBagConstraints constraintBtnLogout = new GridBagConstraints();
+
+    ImageIcon cartIconDark = new ImageIcon(ImgIcon.CART_DARK.img());
+    ImageIcon cartIconLight = new ImageIcon(ImgIcon.CART_LIGHT.img());
+    ImageIcon storeIconDark = new ImageIcon(ImgIcon.STORE_DARK.img());
+    ImageIcon storeIconLight = new ImageIcon(ImgIcon.STORE_LIGHT.img());
+    ImageIcon logoutIconDark = new ImageIcon(ImgIcon.LOGOUT_DARK.img());
+    ImageIcon logoutIconLight = new ImageIcon(ImgIcon.LOGOUT_LIGHT.img());
     
-    MainMenuFrame() {
-        JFrame frame = new JFrame();    
+    JPanel menuPanel;
+
+    public MainMenuFrame(User user) {
+        this.user = user;
+
+        // configuração do frame principal
+        this.setSize(800,500);
+        this.setResizable(false);
+        this.setTitle("loja virtual");        
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+
+        //layout
+        LayoutManager layout = new GridBagLayout();
+
+        //paineis -menu 
+        menuPanel = new JPanel();
+        menuPanel.setBackground(MENU_COLOR);
+        menuPanel.setBounds(0,0,100,this.getHeight());
+        menuPanel.setLayout(layout);      
+    
+        //paineis - conteudo
+        JPanel selectedPanel = new JPanel();
+        selectedPanel.setBackground(CONTENT_COLOR);       
+
+        //Botoes - Loja
+        storeFrameBtn.setIcon(storeIconDark);
+        storeFrameBtn.setBackground(CONTENT_COLOR);
+        storeFrameBtn.setForeground(Color.BLACK);
+        storeFrameBtn.setFocusable(false);
+        storeFrameBtn.setBorderPainted(false);
+        storeFrameBtn.setText("Loja");
+        constraintBtnStore.fill = GridBagConstraints.BOTH;
+        constraintBtnStore.weighty = 0.1;
+        constraintBtnStore.gridy = 0;
+        constraintBtnStore.gridx = 0;
+
+        storeFrameBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                //Botoes - Loja
+                storeFrameBtn.setIcon(storeIconDark);
+                storeFrameBtn.setBackground(CONTENT_COLOR);
+                storeFrameBtn.setForeground(Color.BLACK);
+
+                //Botoes - carrinho
+                if(user.getUserType() == 2){          
+                    cartFrameBtn.setIcon(cartIconLight);
+                    cartFrameBtn.setBackground(MENU_COLOR);
+                    cartFrameBtn.setForeground(FONT_COLOR);
+                }                 
+                
+                //Botoes - logout
+                logoutBtn.setIcon(logoutIconLight);
+                logoutBtn.setBackground(MENU_COLOR);
+                logoutBtn.setForeground(FONT_COLOR);
+            }
+        });
         
-        //Inicializa botões e adiciona os ouvintes de ações
-        exitBtn = new JButton("Sair");
-        exitBtn.addActionListener(this);
+        //Botoes - carrinho
+        if(user.getUserType() == 2){          
+            cartFrameBtn.setIcon(cartIconLight);
+            cartFrameBtn.setBackground(MENU_COLOR);
+            cartFrameBtn.setForeground(FONT_COLOR);
+            cartFrameBtn.setFocusable(false);
+            cartFrameBtn.setBorderPainted(false);
+            cartFrameBtn.setText("Carrinho");            
+            constraintBtnCart.fill = GridBagConstraints.BOTH;
+            constraintBtnCart.weighty = 0.1;
+            constraintBtnCart.gridy = 1;
+            constraintBtnCart.gridx = 0;
 
-        storeFrameBtn = new JButton("Loja");
-        storeFrameBtn.addActionListener(this);    
+            cartFrameBtn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e){   
+                    //Botoes - Loja
+                    storeFrameBtn.setIcon(storeIconLight);
+                    storeFrameBtn.setBackground(MENU_COLOR);
+                    storeFrameBtn.setForeground(FONT_COLOR);
 
-        frame.setSize(800,500);
-        frame.setResizable(false);
-        frame.setTitle("loja virtual");        
-        frame.setBackground(new Color(0xBFE8F5));
+                    //Botoes - Carrinho
+                    cartFrameBtn.setIcon(cartIconDark);
+                    cartFrameBtn.setBackground(CONTENT_COLOR);
+                    cartFrameBtn.setForeground(Color.black);
 
-        frame.setLayout(null);
-
-
-        frame.add(exitBtn);
-        frame.add(storeFrameBtn);
+                    //Botoes - logout
+                    logoutBtn.setIcon(logoutIconLight);
+                    logoutBtn.setBackground(MENU_COLOR);
+                    logoutBtn.setForeground(FONT_COLOR);     
+                }
+            });
+        }         
         
-        frame.setVisible(true);
+        //Botoes - logout             
+        logoutBtn.setIcon(logoutIconLight);
+        logoutBtn.setBackground(MENU_COLOR);
+        logoutBtn.setForeground(FONT_COLOR);
+        logoutBtn.setFocusable(false);
+        logoutBtn.setBorderPainted(false);
+        logoutBtn.setText("Sair");          
+        constraintBtnLogout.fill = GridBagConstraints.BOTH;
+        constraintBtnLogout.weighty = 0.01;
+        constraintBtnLogout.gridy = 2;
+        constraintBtnLogout.gridx = 0;
 
+        logoutBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                //Botoes - Loja
+                storeFrameBtn.setIcon(storeIconLight);
+                storeFrameBtn.setBackground(MENU_COLOR);
+                storeFrameBtn.setForeground(FONT_COLOR);
+
+                //Botoes - carrinho
+                if(user.getUserType() == 2){          
+                    cartFrameBtn.setIcon(cartIconLight);
+                    cartFrameBtn.setBackground(MENU_COLOR);
+                    cartFrameBtn.setForeground(FONT_COLOR);
+                }
+                
+                logoutBtn.setIcon(logoutIconDark);
+                logoutBtn.setBackground(CONTENT_COLOR);
+                logoutBtn.setForeground(Color.black);
+            }
+        });
+
+        menuPanel.add(storeFrameBtn,constraintBtnStore);  
+        menuPanel.add(cartFrameBtn,constraintBtnCart);
+        menuPanel.add(logoutBtn,constraintBtnLogout);  
+        
+        this.add(menuPanel,BorderLayout.LINE_START);
+        this.add(selectedPanel);
+
+        this.setVisible(true);
     }
-
-    @Override
-    public void actionPerformed(ActionEvent evt){
-        if(evt.getSource() == exitBtn) {
-
-        } else if (evt.getSource() == storeFrameBtn) {
-
-        }
-    }
-
-
 }

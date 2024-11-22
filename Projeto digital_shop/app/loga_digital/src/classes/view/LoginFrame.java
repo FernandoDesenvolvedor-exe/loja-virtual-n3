@@ -1,4 +1,4 @@
-package classes.view;
+package view;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
