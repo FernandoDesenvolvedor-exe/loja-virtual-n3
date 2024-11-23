@@ -1,0 +1,9 @@
+{
+    "java.project.sourcePaths": [
+        "Projeto digital_shop\\app\\loga_digital\\src",
+        "Projeto digital_shop\\app\\loga_digital\\src\\classes"
+    ],
+    "java.project.referencedLibraries": [
+        "c:\\xampp\\htdocs\\mysql-connector-j-9.1.0\\mysql-connector-j-9.1.0.jar"
+    ]
+}

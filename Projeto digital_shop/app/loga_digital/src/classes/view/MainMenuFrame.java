@@ -1,7 +1,9 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
@@ -28,6 +30,8 @@ public class MainMenuFrame extends JFrame {
 
     Components width = Components.BTNW;
     Components height = Components.BTNH; 
+    Container container;
+    CardLayout cardLayout;
 
     GridBagConstraints constraintBtnStore = new GridBagConstraints();
     GridBagConstraints constraintBtnCart = new GridBagConstraints();
@@ -46,7 +50,7 @@ public class MainMenuFrame extends JFrame {
         this.user = user;
 
         // configuração do frame principal
-        this.setSize(800,500);
+        this.setSize(800,600);
         this.setResizable(false);
         this.setTitle("loja virtual");        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,8 +66,19 @@ public class MainMenuFrame extends JFrame {
         menuPanel.setLayout(layout);      
     
         //paineis - conteudo
-        JPanel selectedPanel = new JPanel();
-        selectedPanel.setBackground(CONTENT_COLOR);       
+        container = new Container();
+        cardLayout = new CardLayout();
+        container.setLayout(cardLayout);
+
+        StoreCardPanel storeFrame = new StoreCardPanel(user.getUserType());
+        storeFrame.setBounds(container.getBounds());
+        container.add(storeFrame);       
+        cardLayout.first(container);
+        
+        
+        //selectedPanel.setLayout(new CardLayout());       
+        //selectedPanel.add(storeFrame);
+        
 
         //Botoes - Loja
         storeFrameBtn.setIcon(storeIconDark);
@@ -145,6 +160,8 @@ public class MainMenuFrame extends JFrame {
         constraintBtnLogout.gridy = 2;
         constraintBtnLogout.gridx = 0;
 
+        
+
         logoutBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
@@ -171,7 +188,7 @@ public class MainMenuFrame extends JFrame {
         menuPanel.add(logoutBtn,constraintBtnLogout);  
         
         this.add(menuPanel,BorderLayout.LINE_START);
-        this.add(selectedPanel);
+        this.add(container);
 
         this.setVisible(true);
     }
