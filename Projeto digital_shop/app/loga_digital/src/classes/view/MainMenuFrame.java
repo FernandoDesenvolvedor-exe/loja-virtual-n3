@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -21,6 +22,7 @@ public class MainMenuFrame extends JFrame {
     final Color MENU_COLOR = new Color(0x3C2961);
     final Color CONTENT_COLOR = new Color(0x9C98BB);
     final Color FONT_COLOR = new Color(0xDBD6E3);
+    boolean exit = false;
 
     User user;
 
@@ -59,6 +61,11 @@ public class MainMenuFrame extends JFrame {
         //layout
         LayoutManager layout = new GridBagLayout();
 
+        //
+        JDialog dialog = new JDialog();
+        dialog.setBounds(0, 0,300,200);
+        dialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                
         //paineis -menu 
         menuPanel = new JPanel();
         menuPanel.setBackground(MENU_COLOR);
@@ -67,11 +74,11 @@ public class MainMenuFrame extends JFrame {
     
         //paineis - conteudo
         container = new Container();
-        cardLayout = new CardLayout();
+        cardLayout = new CardLayout();        
         container.setLayout(cardLayout);
 
         StoreCardPanel storeFrame = new StoreCardPanel(user.getUserType());
-        storeFrame.setBounds(container.getBounds());
+        storeFrame.setBounds(container.getBounds());  
         container.add(storeFrame);       
         cardLayout.first(container);
         
@@ -129,7 +136,7 @@ public class MainMenuFrame extends JFrame {
 
             cartFrameBtn.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e){   
+                public void actionPerformed(ActionEvent evt){   
                     //Botoes - Loja
                     storeFrameBtn.setIcon(storeIconLight);
                     storeFrameBtn.setBackground(MENU_COLOR);
@@ -143,7 +150,7 @@ public class MainMenuFrame extends JFrame {
                     //Botoes - logout
                     logoutBtn.setIcon(logoutIconLight);
                     logoutBtn.setBackground(MENU_COLOR);
-                    logoutBtn.setForeground(FONT_COLOR);     
+                    logoutBtn.setForeground(FONT_COLOR);                    
                 }
             });
         }         
@@ -159,7 +166,7 @@ public class MainMenuFrame extends JFrame {
         constraintBtnLogout.weighty = 0.01;
         constraintBtnLogout.gridy = 2;
         constraintBtnLogout.gridx = 0;
-
+        
         
 
         logoutBtn.addActionListener(new ActionListener() {
@@ -180,13 +187,19 @@ public class MainMenuFrame extends JFrame {
                 logoutBtn.setIcon(logoutIconDark);
                 logoutBtn.setBackground(CONTENT_COLOR);
                 logoutBtn.setForeground(Color.black);
+
+                exit = true;                              
             }
         });
 
         menuPanel.add(storeFrameBtn,constraintBtnStore);  
-        menuPanel.add(cartFrameBtn,constraintBtnCart);
+        if(user.getUserType() == 2)menuPanel.add(cartFrameBtn,constraintBtnCart);
         menuPanel.add(logoutBtn,constraintBtnLogout);  
         
+        if(exit){
+            this.add(dialog);
+            dialog.setVisible(true);
+        }
         this.add(menuPanel,BorderLayout.LINE_START);
         this.add(container);
 

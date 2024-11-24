@@ -1,8 +1,8 @@
 package view;
 
 public enum Components {
-    BTNH(20),
-    BTNW(60);    
+    BTNH(30),
+    BTNW(180);    
 
     final int num;
 
