@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -12,10 +13,12 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
@@ -27,6 +30,8 @@ public class StoreCardPanel extends JPanel implements ActionListener{
     JButton altProductBtn;
     JButton removeProductBtn;
     JTable table;
+
+    JDialog dialog;
     
     ImageIcon offerIcon = new ImageIcon(ImgIcon.DESCONTO.img());
 
@@ -46,6 +51,7 @@ public class StoreCardPanel extends JPanel implements ActionListener{
             addProductBtn.setBackground(MENU_COLOR);
             addProductBtn.setForeground(Color.WHITE);
             addProductBtn.setFocusable(false);
+            addProductBtn.addActionListener(this);
 
             altProductBtn = new JButton("Alterar Produto");
             altProductBtn.setPreferredSize(new Dimension(Components.BTNW.getNum(),Components.BTNH.getNum()));
@@ -149,7 +155,6 @@ public class StoreCardPanel extends JPanel implements ActionListener{
         scrollPane.setPreferredSize(new Dimension(450,500));
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        //scrollPane.setBackground(Color.CYAN);
 
         JPanel newPanel = new JPanel();
         newPanel.add(scrollPane);
@@ -166,7 +171,7 @@ public class StoreCardPanel extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent evt){
         if(evt.getSource() == addProductBtn){
-            
+            AddProductFrame addPanel = new AddProductFrame();
         }
     }
 }
