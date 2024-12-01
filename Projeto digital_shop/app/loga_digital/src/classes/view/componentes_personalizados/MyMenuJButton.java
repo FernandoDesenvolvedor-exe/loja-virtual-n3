@@ -7,8 +7,6 @@ import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import view.Components;
-
 public class MyMenuJButton extends JButton{
     final Color MENU_COLOR = new Color(0x3C2961);
     final Color CONTENT_COLOR = new Color(0x9C98BB);

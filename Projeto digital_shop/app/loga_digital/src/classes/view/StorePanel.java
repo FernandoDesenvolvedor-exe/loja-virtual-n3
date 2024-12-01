@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Rectangle;
 
 import model.Product;
 import view.componentes_personalizados.MyJButton;
@@ -39,21 +38,22 @@ public class StorePanel extends JPanel implements ActionListener{
     final Color CONTENT_COLOR = new Color(0x9C98BB);
     final Color FONT_COLOR = new Color(0xDBD6E3);
     
-    public StorePanel(int userType){            
+    public StorePanel(int userType){
+       
+        this.setLayout(new BorderLayout(0,0));
+        this.setSize(getPreferredSize());
+        this.setBackground(CONTENT_COLOR);   
 
         JPanel buttonPanel = new JPanel();
+        altProductBtn = new MyJButton("Alterar Produto",this);
+        removeProductBtn = new MyJButton("Remover Produto",this);
+        addProductBtn = new MyJButton("Adicionar Produto",this);
+
         buttonPanel.setBackground(MyJFrame.MENU_COLOR);
-        buttonPanel.setPreferredSize(new Dimension(this.getWidth(),50));
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
         
-        
-
         if(userType == 1){
-            addProductBtn = new MyJButton("Adicionar Produto",this);
             addProductBtn.setPreferredSize(new Dimension(100,50));
-
-
-            altProductBtn = new MyJButton("Alterar Produto",this);
-            removeProductBtn = new MyJButton("Remover Produto",this);
 
             buttonPanel.add(addProductBtn);
             buttonPanel.add(altProductBtn);
@@ -61,7 +61,6 @@ public class StorePanel extends JPanel implements ActionListener{
             
             buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,100));  
         } else {
-            addCartProductBtn = new MyJButton("Adicionar ao carrinho",this);
             buttonPanel.add(addCartProductBtn);
         }
 
@@ -135,26 +134,18 @@ public class StorePanel extends JPanel implements ActionListener{
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(table);
-        table.setFillsViewportHeight(true);
-        
-        
+        table.setFillsViewportHeight(true);        
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBackground(Color.BLACK);
+        scrollPane.setPreferredSize(new Dimension(900,680));
         
         JPanel newPanel = new JPanel();
         newPanel.add(scrollPane);
-        newPanel.setBackground(CONTENT_COLOR);
-        newPanel.setBounds(0,0, this.getWidth(), this.getHeight());
-        newPanel.setBackground(Color.BLACK);
-        newPanel.setLayout(null);
+        newPanel.setBackground(MyJFrame.CONTENT_COLOR);
 
-        scrollPane.setBounds(100,50,800,630);
-       
-        this.setLayout(new BorderLayout());
-        this.add(newPanel);
-        this.add(buttonPanel, BorderLayout.NORTH);
-        this.setBackground(CONTENT_COLOR);        
+        this.add(newPanel,BorderLayout.WEST);
+        this.add(buttonPanel, BorderLayout.EAST);
 
         this.setVisible(true);
     }

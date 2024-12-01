@@ -51,7 +51,7 @@ public class MainMenuFrame extends MyJFrame implements ActionListener{
         this.user = user;
 
         // Inicializa componentes        
-        dialog = new JDialog();        
+        dialog = new JDialog();
         JPanel menuPanel = new JPanel();
         JPanel buttonsPanel = new JPanel();
         JPanel logoutButtonPanel = new JPanel();
@@ -59,28 +59,29 @@ public class MainMenuFrame extends MyJFrame implements ActionListener{
         cardLayout = new CardLayout();
         StorePanel storePanel = new StorePanel(user.getUserType());
         
-        buttonsPanel.add(buttonsPanel);
-        buttonsPanel.add(storePanelBtn);
-        buttonsPanel.add(cartFrameBtn);
-        menuPanel.add(logoutBtn);
-        menuPanel.add(logoutButtonPanel); 
         container.add(storePanel);
         this.add(menuPanel, BorderLayout.NORTH);
         this.add(container, BorderLayout.SOUTH);
         this.setVisible(true);
 
-        if(user.getUserType() == 2) cartFrameBtn.setVisible(false);
-
-        //layout
-       // LayoutManager layout = new GridBagLayout();
-
         dialog.setBounds(0, 0,300,200);
-        dialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                
-        //paineis -menu 
+        dialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);                
 
+        buttonsPanel.add(storePanelBtn);
+        if(user.getUserType() == 2) buttonsPanel.add(cartFrameBtn);
+        buttonsPanel.setLayout(new FlowLayout(0,0,0));
+        buttonsPanel.setBackground(MENU_COLOR);
+
+        logoutButtonPanel.add(logoutBtn);
+        logoutButtonPanel.setBackground(MENU_COLOR);
+        logoutButtonPanel.setLayout(new FlowLayout(0,0,0));
+
+        //paineis -menu 
         menuPanel.setBackground(MENU_COLOR);
-        menuPanel.setLayout(new FlowLayout(FlowLayout.LEFT,1,0));
+        menuPanel.setLayout(new BorderLayout(0,0));
+        menuPanel.add(buttonsPanel,BorderLayout.WEST);
+        menuPanel.add(logoutButtonPanel,BorderLayout.EAST);
+        //menuPanel.setLayout(new FlowLayout(FlowLayout.LEFT,1,0));
     
         //paineis - conteudo
         container.setPreferredSize(new Dimension(this.getWidth(), this.getHeight() - 50));
@@ -91,6 +92,8 @@ public class MainMenuFrame extends MyJFrame implements ActionListener{
         storePanelBtn.setSelectedButton(true,storeIconDark);
         cartFrameBtn.setSelectedButton(false, cartIconLight);
         logoutBtn.setSelectedButton(false, logoutIconLight);
+
+        System.out.println(storePanel.getSize());
         
         this.pack();        
     }

@@ -23,7 +23,7 @@ CREATE TABLE products(
 );
 
 CREATE TABLE carts(
-    cart_id INT NOT NULL
+    cart_id INT NOT NULL,
 	user_id INT NOT NULL,
     product_id INT NOT NULL,
     product_quantity INT NOT NULL CHECK (product_quantity > 0),
