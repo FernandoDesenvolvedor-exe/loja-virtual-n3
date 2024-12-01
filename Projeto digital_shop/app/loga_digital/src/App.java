@@ -8,6 +8,7 @@ public class App {
         user.setUserType(1);
         user.setUserName("Luis");
         
+        @SuppressWarnings("unused")
         MainMenuFrame frame = new MainMenuFrame(user);
     }
 }

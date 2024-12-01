@@ -13,71 +13,56 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Rectangle;
 
 import model.Product;
+import view.componentes_personalizados.MyJButton;
+import view.componentes_personalizados.MyJFrame;
 
-public class StoreCardPanel extends JPanel implements ActionListener{
-    JButton addProductBtn;
-    JButton addCartProductBtn;
-    JButton altProductBtn;
-    JButton removeProductBtn;
+public class StorePanel extends JPanel implements ActionListener{
+    MyJButton addProductBtn;
+    MyJButton addCartProductBtn;
+    MyJButton altProductBtn;
+    MyJButton removeProductBtn;
     JTable table;
 
     JDialog dialog;
     
     ImageIcon offerIcon = new ImageIcon(ImgIcon.DESCONTO.img());
 
-    final Color MENU_COLOR = new Color(0x3C2961);
     final Color CONTENT_COLOR = new Color(0x9C98BB);
     final Color FONT_COLOR = new Color(0xDBD6E3);
     
-    public StoreCardPanel(int userType){            
+    public StorePanel(int userType){            
 
-        JPanel buttoPanel = new JPanel();
-        buttoPanel.setBackground(CONTENT_COLOR);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(MyJFrame.MENU_COLOR);
+        buttonPanel.setPreferredSize(new Dimension(this.getWidth(),50));
+        
         
 
         if(userType == 1){
-            addProductBtn = new JButton("Adicionar Produto");
-            addProductBtn.setPreferredSize(new Dimension(Components.BTNW.getNum(),Components.BTNH.getNum()));
-            addProductBtn.setBackground(MENU_COLOR);
-            addProductBtn.setForeground(Color.WHITE);
-            addProductBtn.setFocusable(false);
-            addProductBtn.addActionListener(this);
+            addProductBtn = new MyJButton("Adicionar Produto",this);
+            addProductBtn.setPreferredSize(new Dimension(100,50));
 
-            altProductBtn = new JButton("Alterar Produto");
-            altProductBtn.setPreferredSize(new Dimension(Components.BTNW.getNum(),Components.BTNH.getNum()));
-            altProductBtn.setBackground(MENU_COLOR);
-            altProductBtn.setForeground(Color.WHITE);
-            altProductBtn.setFocusable(false);
 
-            removeProductBtn = new JButton("Remover Produto");
-            removeProductBtn.setPreferredSize(new Dimension(Components.BTNW.getNum(),Components.BTNH.getNum()));
-            removeProductBtn.setBackground(MENU_COLOR);
-            removeProductBtn.setForeground(Color.WHITE);
-            removeProductBtn.setFocusable(false);
+            altProductBtn = new MyJButton("Alterar Produto",this);
+            removeProductBtn = new MyJButton("Remover Produto",this);
 
-            buttoPanel.add(addProductBtn);
-            buttoPanel.add(altProductBtn);
-            buttoPanel.add(removeProductBtn);
+            buttonPanel.add(addProductBtn);
+            buttonPanel.add(altProductBtn);
+            buttonPanel.add(removeProductBtn);
             
-            buttoPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,100));  
+            buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,100));  
         } else {
-            addCartProductBtn = new JButton("Adicionar ao carrinho");
-            addCartProductBtn.setPreferredSize(new Dimension(Components.BTNW.getNum(),Components.BTNH.getNum()));
-            addCartProductBtn.setBackground(MENU_COLOR);
-            addCartProductBtn.setForeground(Color.WHITE);
-            addCartProductBtn.setFocusable(false);
-
-            buttoPanel.add(addCartProductBtn);
+            addCartProductBtn = new MyJButton("Adicionar ao carrinho",this);
+            buttonPanel.add(addCartProductBtn);
         }
 
         ArrayList<Product> products = Product.getAll();
@@ -109,7 +94,7 @@ public class StoreCardPanel extends JPanel implements ActionListener{
             public boolean isCellEditable(int row, int column){
                 return false;
             }
-        };       
+        };
 
         table.setModel(tModel);
         table.setRowHeight(100);              
@@ -152,18 +137,24 @@ public class StoreCardPanel extends JPanel implements ActionListener{
         scrollPane.setViewportView(table);
         table.setFillsViewportHeight(true);
         
-        scrollPane.setPreferredSize(new Dimension(450,500));
+        
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-
+        scrollPane.setBackground(Color.BLACK);
+        
         JPanel newPanel = new JPanel();
         newPanel.add(scrollPane);
         newPanel.setBackground(CONTENT_COLOR);
+        newPanel.setBounds(0,0, this.getWidth(), this.getHeight());
+        newPanel.setBackground(Color.BLACK);
+        newPanel.setLayout(null);
 
-        this.setLayout(new BorderLayout(0,0));
-        this.add(newPanel,BorderLayout.WEST);
-        this.add(buttoPanel);
-        this.setBackground(CONTENT_COLOR);
+        scrollPane.setBounds(100,50,800,630);
+       
+        this.setLayout(new BorderLayout());
+        this.add(newPanel);
+        this.add(buttonPanel, BorderLayout.NORTH);
+        this.setBackground(CONTENT_COLOR);        
 
         this.setVisible(true);
     }
@@ -171,6 +162,7 @@ public class StoreCardPanel extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent evt){
         if(evt.getSource() == addProductBtn){
+            @SuppressWarnings("unused")
             AddProductFrame addPanel = new AddProductFrame();
         }
     }
