@@ -41,15 +41,15 @@ public class StorePanel extends JPanel implements ActionListener{
     public StorePanel(int userType){
        
         this.setLayout(new BorderLayout(0,0));
-        this.setSize(getPreferredSize());
-        this.setBackground(CONTENT_COLOR);   
+        this.setBackground(Color.BLUE);
+        //this.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         JPanel buttonPanel = new JPanel();
         altProductBtn = new MyJButton("Alterar Produto",this);
         removeProductBtn = new MyJButton("Remover Produto",this);
         addProductBtn = new MyJButton("Adicionar Produto",this);
 
-        buttonPanel.setBackground(MyJFrame.MENU_COLOR);
+        buttonPanel.setBackground(MyJFrame.CONTENT_COLOR);
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
         
         if(userType == 1){
@@ -137,14 +137,14 @@ public class StorePanel extends JPanel implements ActionListener{
         table.setFillsViewportHeight(true);        
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setBackground(Color.BLACK);
         scrollPane.setPreferredSize(new Dimension(900,680));
         
         JPanel newPanel = new JPanel();
         newPanel.add(scrollPane);
-        newPanel.setBackground(MyJFrame.CONTENT_COLOR);
+        newPanel.setBackground(Color.CYAN);
+        newPanel.setPreferredSize(new Dimension(1000,600));
 
-        this.add(newPanel,BorderLayout.WEST);
+        this.add(newPanel,BorderLayout.WEST);        
         this.add(buttonPanel, BorderLayout.EAST);
 
         this.setVisible(true);

@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,9 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import model.User;
-import view.componentes_personalizados.MainMenuBtnConstraints;
-import view.componentes_personalizados.MyJButton;
+import model.Usuario;
 import view.componentes_personalizados.MyJFrame;
 import view.componentes_personalizados.MyMenuJButton;
 
@@ -26,7 +23,7 @@ public class MainMenuFrame extends MyJFrame implements ActionListener{
     final Color FONT_COLOR = new Color(0xDBD6E3);
     boolean exit = false;
 
-    User user;
+    Usuario user;
 
     MyMenuJButton logoutBtn = new MyMenuJButton("Sair", this);
     MyMenuJButton storePanelBtn = new MyMenuJButton("Loja", this);
@@ -46,7 +43,7 @@ public class MainMenuFrame extends MyJFrame implements ActionListener{
 
     JDialog dialog;
 
-    public MainMenuFrame(User user) {
+    public MainMenuFrame(Usuario user) {
         super("loja virtual");
         this.user = user;
 
@@ -57,9 +54,10 @@ public class MainMenuFrame extends MyJFrame implements ActionListener{
         JPanel logoutButtonPanel = new JPanel();
         container = new Container();
         cardLayout = new CardLayout();
-        StorePanel storePanel = new StorePanel(user.getUserType());
+        StorePanel storePanel = new StorePanel(user.getTipo());
         
         container.add(storePanel);
+
         this.add(menuPanel, BorderLayout.NORTH);
         this.add(container, BorderLayout.SOUTH);
         this.setVisible(true);
@@ -68,7 +66,7 @@ public class MainMenuFrame extends MyJFrame implements ActionListener{
         dialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);                
 
         buttonsPanel.add(storePanelBtn);
-        if(user.getUserType() == 2) buttonsPanel.add(cartFrameBtn);
+        if(user.getTipo() == 2) buttonsPanel.add(cartFrameBtn);
         buttonsPanel.setLayout(new FlowLayout(0,0,0));
         buttonsPanel.setBackground(MENU_COLOR);
 
@@ -93,7 +91,7 @@ public class MainMenuFrame extends MyJFrame implements ActionListener{
         cartFrameBtn.setSelectedButton(false, cartIconLight);
         logoutBtn.setSelectedButton(false, logoutIconLight);
 
-        System.out.println(storePanel.getSize());
+        System.out.println(container.getSize());
         
         this.pack();        
     }
