@@ -16,6 +16,7 @@ public class Usuario {
     String email;
     String senha;
     String endereço;
+    Carrinho carrinho;
 
     public Usuario(String nome, String sobrenome, String email, String senha, int tipos, String endereço) {
         this.nome = nome;
@@ -30,9 +31,9 @@ public class Usuario {
     @Override
     public String toString() {
         if (this.tipos == 2) {
-            return "Nome: " + nome + ",Tipos: funcionario, Sobrenome: " + sobrenome + ", E-mail: " + email + ", Senha: " + senha + ", Endereço: " + endereço;  
+            return "Nome: " + nome + " " + sobrenome + "(funcionario)";
         } else{
-            return "Nome: " + nome + ",Tipos: cliente, Sobrenome: " + sobrenome + ", E-mail: " + email + ", Senha: " + senha + ", Endereço: " + endereço;  
+            return "Nome: " + nome + " " + sobrenome + "(Cliente)";
         }
     }
 

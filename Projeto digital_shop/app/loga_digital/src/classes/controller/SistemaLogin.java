@@ -3,7 +3,6 @@ package controller;
 import java.util.List;
 import java.util.Scanner;
 import model.Usuario;
-import view.MainMenuFrame;
 
 public class SistemaLogin {
     private List<Usuario> usuarios = Usuario.getAllUsuarios();
@@ -34,7 +33,9 @@ public class SistemaLogin {
         System.out.println("Usuário registrado com sucesso!");
     }
 
-    public void fazerLogin(Scanner scanner) {
+    public Usuario fazerLogin(Scanner scanner) {
+        Usuario usuarioEncontrado = new Usuario(null, null, null, null, 0, null);
+
         System.out.print("Digite o nome de usuário: ");
         String nome = scanner.nextLine();
 
@@ -45,16 +46,18 @@ public class SistemaLogin {
         for (Usuario usuario : usuarios) {
             if (usuario.getNome().equals(nome) && usuario.getSenha().equals(senha)) {
                 System.out.println("Login bem-sucedido! Bem-vindo, " + nome + "!");
+                usuarioEncontrado = usuario;
                 autenticado = true;
-
-                MainMenuFrame menu = new MainMenuFrame(usuario);
                 break;
             }
         }
 
         if (!autenticado) {
             System.out.println("Nome de usuário ou senha incorretos. Tente novamente.");
+            return null;
         }
+
+        return usuarioEncontrado;
     }
 
     public void listarUsuarios() {
