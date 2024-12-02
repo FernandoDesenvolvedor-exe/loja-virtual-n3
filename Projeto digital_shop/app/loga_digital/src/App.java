@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
-import controller.SistemaLogin;
-import controller.SistemaLoja;
-import model.Usuario;;
+import classes.controller.SistemaLogin;
+import classes.controller.SistemaLoja;
+import classes.model.Usuario;;
 
 public class App {
     public static void main(String[] args) throws Exception {  
@@ -27,6 +27,7 @@ public class App {
                     break;
                 case 2:
                     Usuario usuarioLogado = logger.fazerLogin(scanner);
+                    System.out.println(usuarioLogado.toString());
                     SistemaLoja loja = new SistemaLoja(usuarioLogado, scanner);
                     loja.abrirMenuLoja();
 

@@ -1,8 +1,8 @@
-package controller;
+package classes.controller;
 
 import java.util.List;
 import java.util.Scanner;
-import model.Usuario;
+import classes.model.Usuario;
 
 public class SistemaLogin {
     private List<Usuario> usuarios = Usuario.getAllUsuarios();

@@ -1,11 +1,13 @@
-package controller;
+package classes.controller;
 
 import java.util.Scanner;
 
-import model.Produto;
-import model.Usuario;
+import classes.model.Produto;
+import classes.model.Usuario;
 
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class SistemaLoja {
     List<Produto> produtos = Produto.getAll();
@@ -80,7 +82,49 @@ public class SistemaLoja {
                 case 2:
 
                     this.menuProduto();
-            
+
+                    break;
+
+                case 3:
+
+                    break;
+                
+                case 4:
+                    try{
+                        System.out.println("--------- Produto Novo ------------");
+                        System.out.print("Nome: ");
+                        String nome = scanner.nextLine();
+
+                        System.out.print("Marca: ");
+                        String marca = scanner.nextLine();
+
+                        System.out.print("Valor: ");
+                        Double valor = scanner.nextDouble();
+                        scanner.nextLine();
+
+                        System.out.println("Desconto: ");
+                        int desconto = scanner.nextInt();
+                        scanner.nextLine();
+
+                        System.out.println("Quantidade em estoque: ");
+                        int qtdEstoque = scanner.nextInt();
+
+                        System.out.println("(1)Digital; (2)Fisico; (3)Digital/Fisico");
+                        int tipo = scanner.nextInt();
+
+                        Produto produto = new Produto(produtos.getLast().getId()+1, nome, marca, valor, desconto, qtdEstoque, tipo);
+
+
+                        produtos.add(produto);
+
+                        Produto.adicionarProduto(new Produto(0, nome, marca, valor, desconto, qtdEstoque, tipo));
+
+                        System.out.println("Produto inserido com sucesso!");
+                    }catch(NoSuchElementException e){
+                        e.printStackTrace();
+                    }
+
+                    break;            
                 default:
                     break;
             }
@@ -122,7 +166,30 @@ public class SistemaLoja {
             switch (opcao) {
                 case 1:
                     if(usuarioLogado.getTipo() == 1){
+                        System.out.println("O que deseja alterar: ");
+                        System.out.println("1 - Nome");
+                        System.out.println("2 - Marca");
+                        System.out.println("4 - Valor");
+                        System.out.println("5 - Desconto");
+                        System.out.println("6 - Tipo");
+                        System.out.print("Escolha uma opção: ");
+                        int prtOpcao = scanner.nextInt();
+                        scanner.nextLine();
 
+                        switch (prtOpcao) {
+                            case 1:
+                                System.out.println("Nome:"+produto.getName());
+                                System.out.print("Novo nome");
+                                String novoNome = scanner.nextLine();
+                                
+
+                                
+                                break;
+                            case 2:
+                                System.out.println("Marca:"+produto.getBrand());
+                            default:
+                                break;
+                        }
                     }
                     
                     break;

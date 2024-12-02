@@ -1,5 +1,6 @@
-package model;
+package classes.model;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -121,5 +122,24 @@ public class Produto {
         }  
 
         return list;
+    }
+
+    public static void adicionarProduto(Produto produto){
+        String sql = "INSERT INTO products (product_name,product_brand_name,product_quantity,product_value,product_discount,product_type) VALUES (?,?,?,?,?,?)";
+        Connection conn = JConnector.getConnecion();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setString(1, produto.getName());
+            stmt.setString(2, produto.getBrand());
+            stmt.setInt(3, produto.getQuantity());
+            stmt.setDouble(4, produto.getValue());
+            stmt.setInt(5, produto.getDiscount());
+            stmt.setInt(6, produto.getType());
+
+            stmt.executeUpdate();
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }
 }
