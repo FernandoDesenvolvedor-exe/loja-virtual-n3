@@ -3,11 +3,12 @@ package view.componentes_personalizados;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-
-import view.Components;
 
 public class MyJButton extends JButton{
     final Color MENU_COLOR = new Color(0x3C2961);
@@ -16,6 +17,16 @@ public class MyJButton extends JButton{
 
     public MyJButton(String text, ActionListener actionListener){
         //this.setPreferredSize(new Dimension(Components.BTNW.getNum(),Components.BTNH.getNum()));
+        this.setBackground(MENU_COLOR);
+        this.setForeground(Color.WHITE);
+        this.setFocusable(false);
+        this.addActionListener(actionListener);
+        this.setBorderPainted(false);
+        this.setText(text);
+    }
+
+    public MyJButton(String text, ActionListener actionListener, int width, int height){
+        this.setPreferredSize(new Dimension(width,height));
         this.setBackground(MENU_COLOR);
         this.setForeground(Color.WHITE);
         this.setFocusable(false);

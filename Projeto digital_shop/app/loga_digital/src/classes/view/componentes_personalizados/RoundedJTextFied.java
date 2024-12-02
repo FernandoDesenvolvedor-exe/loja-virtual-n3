@@ -11,15 +11,24 @@ import java.awt.Color;
 
 
 public class RoundedJTextFied extends JTextField{
-    final Dimension TEXT_FIELD_DIMENSION = new Dimension(250,35);
-    final EmptyBorder TEXT_FIELD_BORDER = new EmptyBorder(5, 10, 5, 10);
+    public static final Dimension TEXT_FIELD_DIMENSION = new Dimension(250,35);
+    public static final int WIDHT = 250;
+    public static final int HEIGHT = 35;
+    public static final EmptyBorder TEXT_FIELD_BORDER = new EmptyBorder(5, 10, 5, 10);
 
     public RoundedJTextFied(String text){        
         this.setOpaque(false);
-        this.setPreferredSize(this.TEXT_FIELD_DIMENSION);
+        this.setPreferredSize(RoundedJTextFied.TEXT_FIELD_DIMENSION);
         this.setBackground(Color.WHITE);
         this.setBorder(TEXT_FIELD_BORDER);       
         this.setText(text);
+    }
+
+    public RoundedJTextFied(){        
+        this.setOpaque(false);
+        this.setPreferredSize(RoundedJTextFied.TEXT_FIELD_DIMENSION);
+        this.setBackground(Color.WHITE);
+        this.setBorder(TEXT_FIELD_BORDER);  
     }
 
     @Override

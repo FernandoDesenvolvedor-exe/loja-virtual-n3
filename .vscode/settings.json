@@ -1,9 +1,9 @@
 {
     "java.project.sourcePaths": [
-        "Projeto digital_shop/app/loga_digital/src",
-        "Projeto digital_shop/app/loga_digital/src/classes"
+        "Projeto digital_shop\\app\\loga_digital\\src",
+        "Projeto digital_shop\\app\\loga_digital\\src\\classes"
     ],
     "java.project.referencedLibraries": [
-        "/opt/lampp/htdocs/projetos_java/mysql-connector-j-9.1.0/mysql-connector-j-9.1.0.jar"
+        "c:\\xampp\\htdocs\\faculdade\\projetos_java\\dependencias\\mysql-connector-j-9.1.0\\mysql-connector-j-9.1.0.jar"
     ]
 }

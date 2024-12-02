@@ -2,7 +2,6 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -18,9 +17,6 @@ import view.componentes_personalizados.MyJFrame;
 import view.componentes_personalizados.MyMenuJButton;
 
 public class MainMenuFrame extends MyJFrame implements ActionListener{
-    final Color MENU_COLOR = new Color(0x3C2961);
-    final Color CONTENT_COLOR = new Color(0x9C98BB);
-    final Color FONT_COLOR = new Color(0xDBD6E3);
     boolean exit = false;
 
     Usuario user;
@@ -61,12 +57,14 @@ public class MainMenuFrame extends MyJFrame implements ActionListener{
         this.add(menuPanel, BorderLayout.NORTH);
         this.add(container, BorderLayout.SOUTH);
         this.setVisible(true);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         dialog.setBounds(0, 0,300,200);
-        dialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);                
+        dialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        dialog.setBackground(CONTENT_COLOR);
 
         buttonsPanel.add(storePanelBtn);
-        if(user.getTipo() == 2) buttonsPanel.add(cartFrameBtn);
+        if(user.getTipo() == 1) buttonsPanel.add(cartFrameBtn);
         buttonsPanel.setLayout(new FlowLayout(0,0,0));
         buttonsPanel.setBackground(MENU_COLOR);
 
@@ -90,8 +88,6 @@ public class MainMenuFrame extends MyJFrame implements ActionListener{
         storePanelBtn.setSelectedButton(true,storeIconDark);
         cartFrameBtn.setSelectedButton(false, cartIconLight);
         logoutBtn.setSelectedButton(false, logoutIconLight);
-
-        System.out.println(container.getSize());
         
         this.pack();        
     }
@@ -111,9 +107,10 @@ public class MainMenuFrame extends MyJFrame implements ActionListener{
         }
 
         if(evt.getSource() == logoutBtn){
+            /*
             storePanelBtn.setSelectedButton(false, storeIconLight);
             cartFrameBtn.setSelectedButton(false, cartIconLight);
-            logoutBtn.setSelectedButton(true, logoutIconDark);
+            logoutBtn.setSelectedButton(true, logoutIconDark);*/
             dialog.setLocationRelativeTo(null);
             dialog.setVisible(true);
         }

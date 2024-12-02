@@ -1,30 +1,33 @@
 package model;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLTimeoutException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeoutException;
 
 import connectorJ.JConnector;
 
 public class Product {
-    private int id;
+    private Integer id;
     private String name;
     private String brand;
-    private double value;
-    private int discount;
-    private int quantity;
-    private boolean isDigital;
+    private Double value;
+    private Integer discount;
+    private Integer quantity;
+    private Integer type;
 
-    public boolean isDigital() {
-        return isDigital;
+    public Integer getType() {
+        return this.type;
     }
 
-    public void setDigital(boolean isDigital) {
-        this.isDigital = isDigital;
+    public void setType(Integer type) {
+        this.type = type;
     }
     
-    public int getId() {
+    public Integer getId() {
         return id;
     }    
     public String getName() {
@@ -33,43 +36,48 @@ public class Product {
     public String getBrand() {
         return brand;
     }
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
-    public double getValue() {
+    public Double getValue() {
         return value;
     }
-    public int getDiscount() {
+    public Integer getDiscount() {
         return this.discount;
     }
 
     public void setBrand(String brand) {
         this.brand = brand;
     }
-    public void setDiscount(int discount) {
+    public void setDiscount(Integer discount) {
         this.discount = discount;
     }
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     public void setName(String name) {
         this.name = name;
     }
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
-    public void setValue(float value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
-    public Product(int id, String name, String brand, double value, int discount, int quantity, boolean isDigital){
+    @Override
+    public String toString(){
+        return "{nome: "+this.name+",\nmarca: "+this.brand+",\nvalor: "+this.value+"}";
+    }
+
+    public Product(Integer id, String name, String brand, Double value, Integer discount, Integer quantity, Integer type){
         this.id = id;
         this.name = name;
         this.brand = brand;
         this.value = value;
         this.discount = discount;
         this.quantity = quantity;
-        this.isDigital = isDigital;
+        this.type = type;
     }    
 
     public static ArrayList<Product> getAll(){
@@ -88,7 +96,7 @@ public class Product {
                     result.getDouble("product_value"), 
                     result.getInt("product_quantity"),
                     result.getInt("product_discount"),
-                    result.getBoolean("product_type")
+                    result.getInt("product_type")
                     )
                 );
             }
@@ -98,5 +106,27 @@ public class Product {
         }     
 
         return list;
+    }
+
+    public static boolean register(Product newProduct){
+        Connection conn = JConnector.getConnecion();
+        
+        String sql = "INSERT INTO products (product_name,product_brand_name,product_quantity,product_value,product_discount,product_type) VALUES (?,?,?,?,?,?)";
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setString(1, newProduct.getName());
+            stmt.setString(2, newProduct.getBrand());
+            stmt.setInt(3, newProduct.getQuantity());
+            stmt.setDouble(4, newProduct.getValue());
+            stmt.setInt(5, newProduct.getDiscount());
+            stmt.setInt(6, newProduct.getType());
+            stmt.executeUpdate();
+
+        }catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 }

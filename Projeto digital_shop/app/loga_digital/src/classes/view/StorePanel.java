@@ -12,6 +12,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import controller.ProductController;
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,6 +28,9 @@ import view.componentes_personalizados.MyJButton;
 import view.componentes_personalizados.MyJFrame;
 
 public class StorePanel extends JPanel implements ActionListener{
+    ProductController productController = new ProductController();
+    ArrayList<Product> products = Product.getAll();
+
     MyJButton addProductBtn;
     MyJButton addCartProductBtn;
     MyJButton altProductBtn;
@@ -45,18 +50,16 @@ public class StorePanel extends JPanel implements ActionListener{
         this.setBackground(Color.BLUE);
 
         JPanel buttonPanel = new JPanel();
-        altProductBtn = new MyJButton("Alterar Produto",this);
-        removeProductBtn = new MyJButton("Remover Produto",this);
-        addProductBtn = new MyJButton("Adicionar Produto",this);
+        altProductBtn = new MyJButton("Alterar Produto",this,150,40);
+        removeProductBtn = new MyJButton("Remover Produto",this,150,40);
+        addProductBtn = new MyJButton("Adicionar Produto",this,150,40);
         addCartProductBtn = new MyJButton("Adicionar ao carrinho",this);
 
         buttonPanel.setBackground(MyJFrame.CONTENT_COLOR);
         buttonPanel.setLayout(new GridBagLayout());
         buttonPanel.setPreferredSize(new Dimension(200,800));
         
-        if(userType == 1){
-            addProductBtn.setPreferredSize(new Dimension(100,50));
-
+        if(userType == 2){
             buttonPanel.add(addProductBtn);
             buttonPanel.add(altProductBtn);
             buttonPanel.add(removeProductBtn);
@@ -65,8 +68,7 @@ public class StorePanel extends JPanel implements ActionListener{
         } else {
             buttonPanel.add(addCartProductBtn);
         }
-
-        ArrayList<Product> products = Product.getAll();
+        
         String[] columns = {"ID","Produto","Marca","Preço","Desconto","Quantidade","Digital"};
         Object[][] data = new Object[products.size()][8];
 
@@ -83,7 +85,7 @@ public class StorePanel extends JPanel implements ActionListener{
                 data[n][5] = new JButton("",offerIcon);
 
             data[n][6] = product.getQuantity();
-            data[n][7] = product.isDigital();
+            data[n][7] = product.getType();
             
             n++;
         }
@@ -143,7 +145,7 @@ public class StorePanel extends JPanel implements ActionListener{
         
         JPanel newPanel = new JPanel();
         newPanel.add(scrollPane);
-        newPanel.setBackground(Color.CYAN);
+        newPanel.setBackground(MyJFrame.CONTENT_COLOR);
         newPanel.setLayout(new GridBagLayout());
         newPanel.setPreferredSize(new Dimension(1000,600));
 
@@ -151,13 +153,14 @@ public class StorePanel extends JPanel implements ActionListener{
         this.add(buttonPanel, BorderLayout.EAST);
 
         this.setVisible(true);
+
+        
     }
 
     @Override
     public void actionPerformed(ActionEvent evt){
         if(evt.getSource() == addProductBtn){
-            @SuppressWarnings("unused")
-            AddProductFrame addPanel = new AddProductFrame();
+            productController.addProduct();
         }
     }
 }
