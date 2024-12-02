@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
 
 import model.Product;
 import view.componentes_personalizados.MyJButton;
@@ -42,15 +43,16 @@ public class StorePanel extends JPanel implements ActionListener{
        
         this.setLayout(new BorderLayout(0,0));
         this.setBackground(Color.BLUE);
-        //this.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         JPanel buttonPanel = new JPanel();
         altProductBtn = new MyJButton("Alterar Produto",this);
         removeProductBtn = new MyJButton("Remover Produto",this);
         addProductBtn = new MyJButton("Adicionar Produto",this);
+        addCartProductBtn = new MyJButton("Adicionar ao carrinho",this);
 
         buttonPanel.setBackground(MyJFrame.CONTENT_COLOR);
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
+        buttonPanel.setLayout(new GridBagLayout());
+        buttonPanel.setPreferredSize(new Dimension(200,800));
         
         if(userType == 1){
             addProductBtn.setPreferredSize(new Dimension(100,50));
@@ -137,11 +139,12 @@ public class StorePanel extends JPanel implements ActionListener{
         table.setFillsViewportHeight(true);        
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setPreferredSize(new Dimension(900,680));
+        scrollPane.setPreferredSize(new Dimension(860,600));
         
         JPanel newPanel = new JPanel();
         newPanel.add(scrollPane);
         newPanel.setBackground(Color.CYAN);
+        newPanel.setLayout(new GridBagLayout());
         newPanel.setPreferredSize(new Dimension(1000,600));
 
         this.add(newPanel,BorderLayout.WEST);        

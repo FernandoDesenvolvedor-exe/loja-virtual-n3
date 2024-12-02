@@ -1,16 +1,19 @@
 package controller;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import model.Usuario;
 import view.MainMenuFrame;
 
 public class SistemaLogin {
-    private ArrayList<Usuario> usuarios = new ArrayList<>();
+    private List<Usuario> usuarios = Usuario.getAllUsuarios();
 
     public void registrarUsuario(Scanner scanner) {
-        System.out.print("Digite um nome de usuário: ");
+        System.out.print("Digite seu primeiro nome: ");
         String nome = scanner.nextLine();
+
+        System.out.print("Digite seu sobrenome: ");
+        String sobrenome = scanner.nextLine();
 
         System.out.print("Digite um e-mail: ");
         String email = scanner.nextLine();
@@ -18,10 +21,16 @@ public class SistemaLogin {
         System.out.print("Digite uma senha: ");
         String senha = scanner.nextLine();
 
-        System.out.print("Digite sua idade: ");
-        int idade = scanner.nextInt();
+        System.out.print("Digite o seu endereço: ");
+        String endereço = scanner.nextLine();
 
-        usuarios.add(new Usuario(nome, email, senha, idade));
+        System.out.print("Tipo de de usuario: ");
+        int tipos = scanner.nextInt();
+
+        Usuario usuario = new Usuario(nome, sobrenome, email, senha, tipos, endereço);
+
+        usuarios.add(usuario);
+        usuario.salveUsuario();
         System.out.println("Usuário registrado com sucesso!");
     }
 
